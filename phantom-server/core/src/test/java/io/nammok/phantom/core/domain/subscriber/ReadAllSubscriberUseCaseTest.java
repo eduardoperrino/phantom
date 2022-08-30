@@ -4,6 +4,7 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.glytching.junit.extension.random.RandomBeansExtension;
 import io.nammok.phantom.core.domain.Subscriber;
 import io.nammok.phantom.core.port.SubscriberRepository;
+import io.nammok.phantom.core.usecase.subscriber.ReadAllSubscriberUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

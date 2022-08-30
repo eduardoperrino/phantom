@@ -31,7 +31,7 @@ class DeleteAllCircularUseCaseTest {
     @Mock
     PhantomEventBus eventBus;
     @Captor
-    ArgumentCaptor<CircularDeletedEvent> eventCaptor;
+    ArgumentCaptor<CircularDeletedEvent> eventArgumentCaptor;
 
     @InjectMocks
     DeleteAllCircularUseCase cut;
@@ -59,7 +59,7 @@ class DeleteAllCircularUseCaseTest {
         // Then
         verify(repository, times(1)).deleteAll();
 
-        verify(eventBus, times(0)).post(eventCaptor.capture());
+        verify(eventBus, times(0)).post(eventArgumentCaptor.capture());
 
         DeleteAllCircularUseCase.OutputValues expected = outputBuilder.build();
 
@@ -80,7 +80,7 @@ class DeleteAllCircularUseCaseTest {
         // Then
         verify(repository, times(1)).deleteAll();
 
-        verify(eventBus, times(5)).post(eventCaptor.capture());
+        verify(eventBus, times(5)).post(eventArgumentCaptor.capture());
 
         DeleteAllCircularUseCase.OutputValues expected = outputBuilder.build();
 

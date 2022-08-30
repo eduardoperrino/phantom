@@ -5,11 +5,16 @@ import io.github.glytching.junit.extension.random.RandomBeansExtension;
 import io.nammok.phantom.core.domain.Identity;
 import io.nammok.phantom.core.domain.NotFoundException;
 import io.nammok.phantom.core.domain.Subscriber;
+import io.nammok.phantom.core.event.CircularDeletedEvent;
+import io.nammok.phantom.core.event.PhantomEventBus;
 import io.nammok.phantom.core.port.SubscriberRepository;
+import io.nammok.phantom.core.usecase.subscriber.DeleteSubscriberUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -27,6 +32,11 @@ class DeleteSubscriberUseCaseTest {
 
     @Mock
     SubscriberRepository repository;
+    @Mock
+    PhantomEventBus eventBus;
+    @Captor
+    ArgumentCaptor<CircularDeletedEvent> eventArgumentCaptor;
+
 
     @InjectMocks
     DeleteSubscriberUseCase cut;
@@ -56,6 +66,9 @@ class DeleteSubscriberUseCaseTest {
         // Then
         verify(repository, times(1)).deleteByIdentity(deleted.getId());
 
+        verify(eventBus, times(1)).post(eventArgumentCaptor.capture());
+
+
         DeleteSubscriberUseCase.OutputValues expected = outputBuilder.build();
 
         assertThat(actual).isNotNull().isEqualTo(expected);
@@ -78,6 +91,8 @@ class DeleteSubscriberUseCaseTest {
 
         // Then
         verify(repository, times(1)).deleteByIdentity(toDelete);
+
+        verify(eventBus, times(0)).post(eventArgumentCaptor.capture());
 
         NotFoundException expected = NotFoundException.of(toDelete.getId());
 

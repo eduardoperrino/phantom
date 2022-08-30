@@ -1,8 +1,8 @@
 package io.nammok.phantom.presenter.rest.subscriber;
 
 import io.nammok.phantom.core.domain.Identity;
-import io.nammok.phantom.core.domain.subscriber.*;
 import io.nammok.phantom.core.usecase.UseCaseExecutor;
+import io.nammok.phantom.core.usecase.subscriber.*;
 import io.nammok.phantom.presenter.rest.entity.SubscriberRequest;
 import io.nammok.phantom.presenter.rest.entity.SubscriberResponse;
 import org.springframework.stereotype.Component;

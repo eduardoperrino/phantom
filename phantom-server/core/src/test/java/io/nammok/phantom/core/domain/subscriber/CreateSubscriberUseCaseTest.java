@@ -4,20 +4,23 @@ import io.github.glytching.junit.extension.random.Random;
 import io.github.glytching.junit.extension.random.RandomBeansExtension;
 import io.nammok.phantom.core.domain.Subscriber;
 
+import io.nammok.phantom.core.event.PhantomEventBus;
+import io.nammok.phantom.core.event.SubscriberCreatedEvent;
 import io.nammok.phantom.core.port.SubscriberRepository;
 import io.nammok.phantom.core.usecase.identity.GenerateRandomIdentityUseCase;
+import io.nammok.phantom.core.usecase.subscriber.CreateSubscriberUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @ExtendWith(RandomBeansExtension.class)
@@ -27,6 +30,10 @@ class CreateSubscriberUseCaseTest {
     SubscriberRepository repository;
     @Mock
     GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
+    @Mock
+    PhantomEventBus eventBus;
+    @Captor
+    ArgumentCaptor<SubscriberCreatedEvent> eventArgumentCaptor;
 
     @InjectMocks
     CreateSubscriberUseCase cut;
@@ -68,9 +75,12 @@ class CreateSubscriberUseCaseTest {
 
         // Then
         verify(repository).create(repoCapture.capture());
+
         assertThat(repoCapture.getValue()).isNotNull().satisfies(captureParam -> {
             assertThat(captureParam.getId()).isEqualTo(created.getId());
         });
+
+        verify(eventBus, times(1)).post(eventArgumentCaptor.capture());
 
         CreateSubscriberUseCase.OutputValues expected = outputBuilder
                 .withSubscriber(created)

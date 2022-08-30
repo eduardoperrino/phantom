@@ -29,9 +29,9 @@ class CreateCircularUseCaseTest {
     @Mock
     GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
     @Mock
-    PhantomEventBus phantomEventBus;
+    PhantomEventBus eventBus;
     @Captor
-    ArgumentCaptor<CircularCreatedEvent> eventCaptor;
+    ArgumentCaptor<CircularCreatedEvent> eventArgumentCaptor;
     @Captor
     ArgumentCaptor<Circular> circularCaptor;
 
@@ -81,8 +81,8 @@ class CreateCircularUseCaseTest {
                 .withCircular(created)
                 .build();
 
-        verify(phantomEventBus, times(1)).post(eventCaptor.capture());
-        assertThat(eventCaptor.getValue().getBody().getDescription()).isEqualTo(circularCaptor.getValue().getDescription());
+        verify(eventBus, times(1)).post(eventArgumentCaptor.capture());
+        assertThat(eventArgumentCaptor.getValue().getBody().getDescription()).isEqualTo(circularCaptor.getValue().getDescription());
         assertThat(actual).isNotNull().isEqualTo(expected);
     }
 

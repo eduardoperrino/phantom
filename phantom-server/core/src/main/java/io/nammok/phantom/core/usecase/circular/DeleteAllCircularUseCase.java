@@ -19,9 +19,7 @@ public class DeleteAllCircularUseCase extends UseCase<DeleteAllCircularUseCase.I
 
     @Override
     public OutputValues execute(InputValues input) {
-        repository.deleteAll().forEach(circular -> {
-            this.eventBus.post(new CircularDeletedEvent(circular));
-        });
+        repository.deleteAll().forEach(circular -> eventBus.post(new CircularDeletedEvent(circular)));
         return OutputValues.builder().build();
     }
 
