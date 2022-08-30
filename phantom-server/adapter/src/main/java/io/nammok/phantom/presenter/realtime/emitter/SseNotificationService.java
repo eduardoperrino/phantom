@@ -20,19 +20,19 @@ public class SseNotificationService implements NotificationService {
     @Override
     public void broadcastNotification(EventDto event) {
         emitterRepository.getAllMembers().forEach(memberId -> {
-            this.doSendNotification(memberId, event);
+            doSendNotification(memberId, event);
         });
     }
 
     private void doSendNotification(String memberId, EventDto event) {
         this.emitterRepository.get(memberId).ifPresentOrElse(sseEmitter -> {
             try {
-                this.logger.debug("Sending event: {} for member: {}", event, memberId);
-                sseEmitter.send(this.eventMapper.toSseEventBuilder(event));
+                logger.debug("Sending event: {} for member: {}", event, memberId);
+                sseEmitter.send(eventMapper.toSseEventBuilder(event));
             } catch (IOException | IllegalStateException e) {
-                this.logger.debug("Error while sending event: {} for member: {} - exception: {}", event, memberId, e);
-                this.emitterRepository.remove(memberId);
+                logger.debug("Error while sending event: {} for member: {} - exception: {}", event, memberId, e);
+                emitterRepository.remove(memberId);
             }
-        }, () -> this.logger.debug("No emitter for member {}", memberId));
+        }, () -> logger.debug("No emitter for member {}", memberId));
     }
 }

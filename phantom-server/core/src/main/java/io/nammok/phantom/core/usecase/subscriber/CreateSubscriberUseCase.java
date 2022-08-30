@@ -12,9 +12,9 @@ import lombok.Value;
 
 public class CreateSubscriberUseCase extends UseCase<CreateSubscriberUseCase.InputValues, CreateSubscriberUseCase.OutputValues> {
 
-    private SubscriberRepository repository;
-    private GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
-    private PhantomEventBus eventBus;
+    private final SubscriberRepository repository;
+    private final GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
+    private final PhantomEventBus eventBus;
 
     public CreateSubscriberUseCase(SubscriberRepository repository,
                                    GenerateRandomIdentityUseCase generateRandomIdentityUseCase,

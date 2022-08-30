@@ -9,7 +9,7 @@ import lombok.Builder;
 import lombok.Value;
 
 public class ReadCircularUseCase extends UseCase<ReadCircularUseCase.InputValues, ReadCircularUseCase.OutputValues> {
-    private CircularRepository repository;
+    private final CircularRepository repository;
 
     public ReadCircularUseCase(CircularRepository repository) {
         this.repository = repository;

@@ -11,7 +11,7 @@ import lombok.Value;
 
 public class ReadSubscriberUseCase extends UseCase<ReadSubscriberUseCase.InputValues, ReadSubscriberUseCase.OutputValues> {
 
-    private SubscriberRepository repository;
+    private final SubscriberRepository repository;
 
     public ReadSubscriberUseCase(SubscriberRepository repository) { this.repository = repository; }
 

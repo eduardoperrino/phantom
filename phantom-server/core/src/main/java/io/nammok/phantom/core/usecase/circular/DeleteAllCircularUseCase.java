@@ -8,8 +8,8 @@ import lombok.Builder;
 import lombok.Value;
 
 public class DeleteAllCircularUseCase extends UseCase<DeleteAllCircularUseCase.InputValues, DeleteAllCircularUseCase.OutputValues> {
-    private CircularRepository repository;
-    private PhantomEventBus eventBus;
+    private final CircularRepository repository;
+    private final PhantomEventBus eventBus;
 
     public DeleteAllCircularUseCase(CircularRepository repository,
                                     PhantomEventBus eventBus) {

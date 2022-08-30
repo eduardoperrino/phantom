@@ -11,11 +11,11 @@ public abstract class CircularEvent implements Serializable {
     protected Long createdDateMs = Instant.EPOCH.toEpochMilli();
 
     public Circular getBody() {
-        return this.body;
+        return body;
     }
 
     public Long getCreatedDateMs() {
-        return this.createdDateMs;
+        return createdDateMs;
     }
 
 }

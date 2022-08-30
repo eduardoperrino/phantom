@@ -15,6 +15,6 @@ public class SubscriberEvent implements Serializable {
     }
 
     public Long getCreatedDateMs() {
-        return this.createdDateMs;
+        return createdDateMs;
     }
 }

@@ -12,8 +12,8 @@ import lombok.Value;
 import java.util.Optional;
 
 public class DeleteCircularUseCase extends UseCase<DeleteCircularUseCase.InputValues, DeleteCircularUseCase.OutputValues> {
-    private CircularRepository repository;
-    private PhantomEventBus eventBus;
+    private final CircularRepository repository;
+    private final PhantomEventBus eventBus;
 
     public DeleteCircularUseCase(CircularRepository repository, PhantomEventBus eventBus) {
         this.repository = repository;
