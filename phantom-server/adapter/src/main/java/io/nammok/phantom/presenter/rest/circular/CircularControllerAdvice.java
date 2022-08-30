@@ -15,7 +15,7 @@ import java.time.ZonedDateTime;
 
 @ControllerAdvice
 public class CircularControllerAdvice extends ResponseEntityExceptionHandler {
-    private Logger logger;
+    private final Logger logger;
 
     public CircularControllerAdvice(Logger logger) {
         this.logger = logger;

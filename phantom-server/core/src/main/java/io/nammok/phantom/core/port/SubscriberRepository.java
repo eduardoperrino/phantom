@@ -1,6 +1,5 @@
 package io.nammok.phantom.core.port;
 
-import io.nammok.phantom.core.domain.Circular;
 import io.nammok.phantom.core.domain.Identity;
 import io.nammok.phantom.core.domain.Subscriber;
 

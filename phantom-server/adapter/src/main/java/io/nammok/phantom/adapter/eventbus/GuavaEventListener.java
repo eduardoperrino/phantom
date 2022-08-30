@@ -8,8 +8,8 @@ import io.nammok.phantom.presenter.realtime.emitter.NotificationService;
 import org.slf4j.Logger;
 
 public class GuavaEventListener implements EventListener<CircularCreatedEvent> {
-    private Logger logger;
-    private NotificationService notificationService;
+    private final Logger logger;
+    private final NotificationService notificationService;
 
     public GuavaEventListener(Logger logger, NotificationService notificationService) {
         this.logger = logger;

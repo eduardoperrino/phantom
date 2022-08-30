@@ -11,9 +11,9 @@ import lombok.Builder;
 import lombok.Value;
 
 public class CreateCircularUseCase extends UseCase<CreateCircularUseCase.InputValues, CreateCircularUseCase.OutputValues> {
-    private CircularRepository repository;
-    private GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
-    private PhantomEventBus eventBus;
+    private final CircularRepository repository;
+    private final GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
+    private final PhantomEventBus eventBus;
 
     public CreateCircularUseCase(CircularRepository repository,
                                  GenerateRandomIdentityUseCase generateRandomIdentityUseCase,
@@ -36,7 +36,7 @@ public class CreateCircularUseCase extends UseCase<CreateCircularUseCase.InputVa
         OutputValues outputValues =  OutputValues.builder()
                 .withCircular(repository.create(circular))
                 .build();
-        this.eventBus.post(new CircularCreatedEvent(circular));
+        eventBus.post(new CircularCreatedEvent(circular));
         return outputValues;
     }
 

@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CircularRepositoryImpl implements CircularRepository {
-    private Logger logger;
+    private final Logger logger;
 
-    private CircularEntityRepository repository;
+    private final CircularEntityRepository repository;
 
     public CircularRepositoryImpl(Logger logger, CircularEntityRepository circularEntityRepository) {
         this.logger = logger;

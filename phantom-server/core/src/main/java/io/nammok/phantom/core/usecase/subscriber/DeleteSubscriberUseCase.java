@@ -11,7 +11,7 @@ import lombok.Value;
 
 public class DeleteSubscriberUseCase extends UseCase<DeleteSubscriberUseCase.InputValues, DeleteSubscriberUseCase.OutputValues> {
 
-    private SubscriberRepository repository;
+    private final SubscriberRepository repository;
     private final PhantomEventBus eventBus;
 
     public DeleteSubscriberUseCase(SubscriberRepository repository, PhantomEventBus eventBus) {

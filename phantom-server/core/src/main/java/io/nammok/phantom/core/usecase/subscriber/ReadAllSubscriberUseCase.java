@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ReadAllSubscriberUseCase extends UseCase<ReadAllSubscriberUseCase.InputValues, ReadAllSubscriberUseCase.OutputValues> {
 
-    private SubscriberRepository repository;
+    private final SubscriberRepository repository;
 
     public ReadAllSubscriberUseCase(SubscriberRepository repository) { this.repository = repository; }
 

@@ -16,11 +16,11 @@ public class GuavaEventBus implements PhantomEventBus {
     }
 
     public void register(EventListener listener) {
-        this.eventBus.register(listener);
+        eventBus.register(listener);
     }
 
     @Override
     public void post(Object event) {
-        this.eventBus.post(event);
+        eventBus.post(event);
     }
 }

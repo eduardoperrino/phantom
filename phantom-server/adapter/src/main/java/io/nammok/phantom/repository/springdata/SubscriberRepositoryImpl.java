@@ -13,9 +13,9 @@ import java.util.stream.StreamSupport;
 
 public class SubscriberRepositoryImpl implements SubscriberRepository {
 
-    private Logger logger;
+    private final Logger logger;
 
-    private SubscriberEntityRepository repository;
+    private final SubscriberEntityRepository repository;
 
     public SubscriberRepositoryImpl(Logger logger, SubscriberEntityRepository repository) {
         this.logger = logger;

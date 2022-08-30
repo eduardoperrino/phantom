@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Component
 public class RequestResponseLoggingFilter implements Filter {
-    private Logger logger;
+    private final Logger logger;
 
     public RequestResponseLoggingFilter(Logger logger) {
         this.logger = logger;
