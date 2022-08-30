@@ -34,13 +34,13 @@ public class CoreConfig {
     }
 
     @Bean
-    public DeleteAllCircularUseCase deleteAllCircularUseCase(CircularRepository repository) {
-        return new DeleteAllCircularUseCase(repository);
+    public DeleteAllCircularUseCase deleteAllCircularUseCase(CircularRepository repository, PhantomEventBus phantomEventBus) {
+        return new DeleteAllCircularUseCase(repository, phantomEventBus);
     }
 
     @Bean
-    public DeleteCircularUseCase deleteCircularUseCase(CircularRepository repository) {
-        return new DeleteCircularUseCase(repository);
+    public DeleteCircularUseCase deleteCircularUseCase(CircularRepository repository, PhantomEventBus phantomEventBus) {
+        return new DeleteCircularUseCase(repository, phantomEventBus);
     }
 
     @Bean
