@@ -3,11 +3,15 @@ package io.nammok.phantom.core.usecase.circular;
 import io.nammok.phantom.core.domain.Circular;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.glytching.junit.extension.random.RandomBeansExtension;
+import io.nammok.phantom.core.event.CircularDeletedEvent;
+import io.nammok.phantom.core.event.PhantomEventBus;
 import io.nammok.phantom.core.port.CircularRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -24,6 +28,10 @@ class DeleteAllCircularUseCaseTest {
 
     @Mock
     CircularRepository repository;
+    @Mock
+    PhantomEventBus eventBus;
+    @Captor
+    ArgumentCaptor<CircularDeletedEvent> eventCaptor;
 
     @InjectMocks
     DeleteAllCircularUseCase cut;
@@ -51,6 +59,8 @@ class DeleteAllCircularUseCaseTest {
         // Then
         verify(repository, times(1)).deleteAll();
 
+        verify(eventBus, times(0)).post(eventCaptor.capture());
+
         DeleteAllCircularUseCase.OutputValues expected = outputBuilder.build();
 
         assertThat(actual).isNotNull().isEqualTo(expected);
@@ -69,6 +79,8 @@ class DeleteAllCircularUseCaseTest {
 
         // Then
         verify(repository, times(1)).deleteAll();
+
+        verify(eventBus, times(5)).post(eventCaptor.capture());
 
         DeleteAllCircularUseCase.OutputValues expected = outputBuilder.build();
 
