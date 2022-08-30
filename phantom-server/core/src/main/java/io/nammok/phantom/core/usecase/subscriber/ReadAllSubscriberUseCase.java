@@ -1,4 +1,4 @@
-package io.nammok.phantom.core.domain.subscriber;
+package io.nammok.phantom.core.usecase.subscriber;
 
 import io.nammok.phantom.core.domain.Subscriber;
 import io.nammok.phantom.core.port.SubscriberRepository;

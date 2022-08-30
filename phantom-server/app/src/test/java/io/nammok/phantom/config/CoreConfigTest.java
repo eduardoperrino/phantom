@@ -1,10 +1,9 @@
 package io.nammok.phantom.config;
 
-
-import io.nammok.phantom.core.domain.subscriber.*;
 import io.nammok.phantom.core.event.PhantomEventBus;
 import io.nammok.phantom.core.usecase.circular.*;
 import io.nammok.phantom.core.usecase.identity.GenerateRandomIdentityUseCase;
+import io.nammok.phantom.core.usecase.subscriber.*;
 import io.nammok.phantom.repository.springdata.CircularEntityRepository;
 import io.nammok.phantom.repository.springdata.SubscriberEntityRepository;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,7 @@ class CoreConfigTest {
     @MockBean
     SubscriberEntityRepository subscriberEntityRepository;
     @MockBean
-    PhantomEventBus phantomEventBus;
+    PhantomEventBus eventBus;
 
     @Autowired
     GenerateRandomIdentityUseCase generateRandomIdentityUseCase;

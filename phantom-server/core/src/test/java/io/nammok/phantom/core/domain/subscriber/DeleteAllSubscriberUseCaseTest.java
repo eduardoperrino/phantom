@@ -3,11 +3,16 @@ package io.nammok.phantom.core.domain.subscriber;
 import io.github.glytching.junit.extension.random.Random;
 import io.github.glytching.junit.extension.random.RandomBeansExtension;
 import io.nammok.phantom.core.domain.Subscriber;
+import io.nammok.phantom.core.event.PhantomEventBus;
+import io.nammok.phantom.core.event.SubscriberDeletedEvent;
 import io.nammok.phantom.core.port.SubscriberRepository;
+import io.nammok.phantom.core.usecase.subscriber.DeleteAllSubscriberUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -24,6 +29,10 @@ class DeleteAllSubscriberUseCaseTest {
 
     @Mock
     SubscriberRepository repository;
+    @Mock
+    PhantomEventBus eventBus;
+    @Captor
+    ArgumentCaptor<SubscriberDeletedEvent> eventArgumentCaptor;
 
     @InjectMocks
     DeleteAllSubscriberUseCase cut;
@@ -51,6 +60,8 @@ class DeleteAllSubscriberUseCaseTest {
         // Then
         verify(repository, times(1)).deleteAll();
 
+        verify(eventBus, times(0)).post(eventArgumentCaptor.capture());
+
         DeleteAllSubscriberUseCase.OutputValues expected = outputBuilder.build();
 
         assertThat(actual).isNotNull().isEqualTo(expected);
@@ -69,6 +80,8 @@ class DeleteAllSubscriberUseCaseTest {
 
         // Then
         verify(repository, times(1)).deleteAll();
+
+        verify(eventBus, times(5)).post(eventArgumentCaptor.capture());
 
         DeleteAllSubscriberUseCase.OutputValues expected = outputBuilder.build();
 

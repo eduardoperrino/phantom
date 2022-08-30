@@ -13,14 +13,14 @@ import lombok.Value;
 public class CreateCircularUseCase extends UseCase<CreateCircularUseCase.InputValues, CreateCircularUseCase.OutputValues> {
     private CircularRepository repository;
     private GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
-    private PhantomEventBus phantomEventBus;
+    private PhantomEventBus eventBus;
 
     public CreateCircularUseCase(CircularRepository repository,
                                  GenerateRandomIdentityUseCase generateRandomIdentityUseCase,
-                                 PhantomEventBus phantomEventBus) {
+                                 PhantomEventBus eventBus) {
         this.repository = repository;
         this.generateRandomIdentityUseCase = generateRandomIdentityUseCase;
-        this.phantomEventBus = phantomEventBus;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class CreateCircularUseCase extends UseCase<CreateCircularUseCase.InputVa
         OutputValues outputValues =  OutputValues.builder()
                 .withCircular(repository.create(circular))
                 .build();
-        this.phantomEventBus.post(new CircularCreatedEvent(circular));
+        this.eventBus.post(new CircularCreatedEvent(circular));
         return outputValues;
     }
 

@@ -1,11 +1,11 @@
 package io.nammok.phantom.config;
 
-import io.nammok.phantom.core.domain.subscriber.*;
 import io.nammok.phantom.core.event.PhantomEventBus;
 import io.nammok.phantom.core.port.CircularRepository;
 import io.nammok.phantom.core.port.SubscriberRepository;
 import io.nammok.phantom.core.usecase.circular.*;
 import io.nammok.phantom.core.usecase.identity.GenerateRandomIdentityUseCase;
+import io.nammok.phantom.core.usecase.subscriber.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -19,8 +19,8 @@ public class CoreConfig {
     @Bean
     public CreateCircularUseCase createCircularUseCase(CircularRepository repository,
                                                        GenerateRandomIdentityUseCase generateRandomIdentityUseCase,
-                                                       PhantomEventBus phantomEventBus) {
-        return new CreateCircularUseCase(repository, generateRandomIdentityUseCase, phantomEventBus);
+                                                       PhantomEventBus eventBus) {
+        return new CreateCircularUseCase(repository, generateRandomIdentityUseCase, eventBus);
     }
 
     @Bean
@@ -44,8 +44,10 @@ public class CoreConfig {
     }
 
     @Bean
-    public CreateSubscriberUseCase createSubscriberUseCase(SubscriberRepository repository, GenerateRandomIdentityUseCase generateRandomIdentityUseCase) {
-        return new CreateSubscriberUseCase(repository, generateRandomIdentityUseCase);
+    public CreateSubscriberUseCase createSubscriberUseCase(SubscriberRepository repository,
+                                                           GenerateRandomIdentityUseCase generateRandomIdentityUseCase,
+                                                           PhantomEventBus eventBus) {
+        return new CreateSubscriberUseCase(repository, generateRandomIdentityUseCase, eventBus);
     }
 
     @Bean
@@ -59,12 +61,12 @@ public class CoreConfig {
     }
 
     @Bean
-    public DeleteAllSubscriberUseCase deleteAllSubscriberUseCase(SubscriberRepository repository) {
-        return new DeleteAllSubscriberUseCase(repository);
+    public DeleteAllSubscriberUseCase deleteAllSubscriberUseCase(SubscriberRepository repository, PhantomEventBus eventBus) {
+        return new DeleteAllSubscriberUseCase(repository, eventBus);
     }
 
     @Bean
-    public DeleteSubscriberUseCase deleteSubscriberUseCase(SubscriberRepository repository) {
-        return new DeleteSubscriberUseCase(repository);
+    public DeleteSubscriberUseCase deleteSubscriberUseCase(SubscriberRepository repository, PhantomEventBus eventBus) {
+        return new DeleteSubscriberUseCase(repository, eventBus);
     }
 }

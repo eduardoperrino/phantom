@@ -1,7 +1,9 @@
-package io.nammok.phantom.core.domain.subscriber;
+package io.nammok.phantom.core.usecase.subscriber;
 
 import io.nammok.phantom.core.domain.Identity;
 import io.nammok.phantom.core.domain.Subscriber;
+import io.nammok.phantom.core.event.PhantomEventBus;
+import io.nammok.phantom.core.event.SubscriberCreatedEvent;
 import io.nammok.phantom.core.port.SubscriberRepository;
 import io.nammok.phantom.core.usecase.UseCase;
 import io.nammok.phantom.core.usecase.identity.GenerateRandomIdentityUseCase;
@@ -12,10 +14,14 @@ public class CreateSubscriberUseCase extends UseCase<CreateSubscriberUseCase.Inp
 
     private SubscriberRepository repository;
     private GenerateRandomIdentityUseCase generateRandomIdentityUseCase;
+    private PhantomEventBus eventBus;
 
-    public CreateSubscriberUseCase(SubscriberRepository repository, GenerateRandomIdentityUseCase generateRandomIdentityUseCase) {
+    public CreateSubscriberUseCase(SubscriberRepository repository,
+                                   GenerateRandomIdentityUseCase generateRandomIdentityUseCase,
+                                   PhantomEventBus eventBus) {
         this.repository = repository;
         this.generateRandomIdentityUseCase = generateRandomIdentityUseCase;
+        this.eventBus = eventBus;
     }
 
     @Override
@@ -28,9 +34,11 @@ public class CreateSubscriberUseCase extends UseCase<CreateSubscriberUseCase.Inp
                 .withEmail(input.getEmail())
                 .build();
 
-        return CreateSubscriberUseCase.OutputValues.builder()
+        OutputValues outputValues = CreateSubscriberUseCase.OutputValues.builder()
                 .withSubscriber(repository.create(subscriber))
                 .build();
+        eventBus.post(new SubscriberCreatedEvent(subscriber));
+        return outputValues;
     }
 
     @Value

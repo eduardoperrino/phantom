@@ -1,24 +1,26 @@
-package io.nammok.phantom.core.domain.subscriber;
+package io.nammok.phantom.core.usecase.subscriber;
 
 import io.nammok.phantom.core.domain.Identity;
 import io.nammok.phantom.core.domain.NotFoundException;
+import io.nammok.phantom.core.domain.Subscriber;
 import io.nammok.phantom.core.port.SubscriberRepository;
 import io.nammok.phantom.core.usecase.UseCase;
 import lombok.Builder;
 import lombok.Value;
 
-public class DeleteSubscriberUseCase extends UseCase<DeleteSubscriberUseCase.InputValues, DeleteSubscriberUseCase.OutputValues> {
+
+public class ReadSubscriberUseCase extends UseCase<ReadSubscriberUseCase.InputValues, ReadSubscriberUseCase.OutputValues> {
 
     private SubscriberRepository repository;
 
-    public DeleteSubscriberUseCase(SubscriberRepository repository) { this.repository = repository; }
+    public ReadSubscriberUseCase(SubscriberRepository repository) { this.repository = repository; }
 
     @Override
-    public DeleteSubscriberUseCase.OutputValues execute(DeleteSubscriberUseCase.InputValues input) {
+    public ReadSubscriberUseCase.OutputValues execute(ReadSubscriberUseCase.InputValues input) {
         Identity identity = input.getIdentity();
 
-        return repository.deleteByIdentity(identity)
-                .map(e -> DeleteSubscriberUseCase.OutputValues.builder().build())
+        return repository.readByIdentity(identity)
+                .map(e -> ReadSubscriberUseCase.OutputValues.builder().withSubscriber(e).build())
                 .orElseThrow(() -> NotFoundException.of(identity.getId()));
     }
 
@@ -31,5 +33,6 @@ public class DeleteSubscriberUseCase extends UseCase<DeleteSubscriberUseCase.Inp
     @Value
     @Builder(setterPrefix = "with")
     public static class OutputValues implements UseCase.OutputValues {
+        Subscriber subscriber;
     }
 }

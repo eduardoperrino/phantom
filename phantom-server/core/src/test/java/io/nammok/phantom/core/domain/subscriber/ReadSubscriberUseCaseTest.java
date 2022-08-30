@@ -6,6 +6,7 @@ import io.nammok.phantom.core.domain.Identity;
 import io.nammok.phantom.core.domain.NotFoundException;
 import io.nammok.phantom.core.domain.Subscriber;
 import io.nammok.phantom.core.port.SubscriberRepository;
+import io.nammok.phantom.core.usecase.subscriber.ReadSubscriberUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;

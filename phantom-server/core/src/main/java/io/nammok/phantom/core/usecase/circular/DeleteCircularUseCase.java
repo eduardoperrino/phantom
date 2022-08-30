@@ -24,7 +24,8 @@ public class DeleteCircularUseCase extends UseCase<DeleteCircularUseCase.InputVa
     public OutputValues execute(InputValues input) {
         Identity identity = input.getIdentity();
 
-        return repository.deleteByIdentity(identity).map( circular -> {
+        return repository.deleteByIdentity(identity)
+                .map( circular -> {
                     eventBus.post(new CircularDeletedEvent(circular));
                     return circular;
                 })
