@@ -13,3 +13,32 @@ decisions later.
 
 The system will provide a web application where any neighbour can connect and see the decisions in real-time. 
 Also, it will provide a subscription service to get them in their inbox email, allowing later access.
+
+## Run Phantom
+
+### Start phantom server
+
+```
+$ cd phantom server
+$ ./mvnw spring-boot:run -pl app
+```
+
+### Start phantom frontend
+```
+$ cd phantom frontend
+$ npm install
+$ npm start
+```
+
+### Send decisions
+```
+$ curl --location --request POST 'http://localhost:8080/circular/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "name": "Post microchip",
+    "description": "Post Try to override the ADP pixel, maybe it will compress the neural matrix!"
+}'
+```
+
+
+
