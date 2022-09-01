@@ -2,20 +2,18 @@ package io.nammok.phantom.core.event;
 
 
 import io.nammok.phantom.core.domain.Circular;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NonNull;
 
 import java.io.Serializable;
-import java.time.Instant;
+import static java.time.Instant.*;
 
-public abstract class CircularEvent implements Serializable {
-    protected Circular body;
-    protected Long createdDateMs = Instant.EPOCH.toEpochMilli();
+@Data
+@AllArgsConstructor
+public class CircularEvent implements Serializable {
 
-    public Circular getBody() {
-        return body;
-    }
-
-    public Long getCreatedDateMs() {
-        return createdDateMs;
-    }
-
+    @NonNull
+    private final Circular body;
+    private final Long createdDateMs =  EPOCH.toEpochMilli();
 }
