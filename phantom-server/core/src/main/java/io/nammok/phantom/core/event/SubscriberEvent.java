@@ -4,15 +4,18 @@ import io.nammok.phantom.core.domain.Subscriber;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import lombok.Value;
+import lombok.experimental.NonFinal;
 
 import java.io.Serializable;
 import static java.time.Instant.*;
 
-@Data
+@Value
+@NonFinal
 @AllArgsConstructor
 public class SubscriberEvent implements Serializable {
 
     @NonNull
-    private final Subscriber body;
-    private final Long createdDateMs = EPOCH.toEpochMilli();
+    Subscriber body;
+    Long createdDateMs = EPOCH.toEpochMilli();
 }
